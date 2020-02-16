@@ -1,0 +1,12 @@
+bin
+Debug
+obj
+AlloBobo
+AlloBobo.cbp
+AlloBobo.depend
+AlloBobo.layout
+Allobobo.sln
+Allobobo.vcxproj
+Allobobo.vcxproj.filters
+Allobobo.vcxproj.user
+packages.config

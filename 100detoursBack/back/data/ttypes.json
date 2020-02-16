@@ -1,0 +1,17 @@
+[
+	{
+		"code":0,
+		"name":"Pansements",
+		"duration":20
+	},
+	{
+		"code":1,
+		"name":"Pansements",
+		"duration":30
+	},
+	{
+		"code":2,
+		"name":"Prise de sang",
+		"duration":10
+	}
+]

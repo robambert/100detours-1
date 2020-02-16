@@ -1,0 +1,22 @@
+{
+	"carSpeed": 15,
+	"walkSpeed": 5,
+	"minCarDist": 1000,
+	"treatmentTypes": [
+		{"_id": 0, "duration": 15},
+		{"_id": 1, "duration": 30}
+	],
+	"nurses": [
+		{"_id": 0, "treatmentTypeIds": [], "startTime": 600},
+		{"_id": 1, "treatmentTypeIds": [1], "startTime": 480}
+	],
+	"patients": [
+		{"_id": 0, "location": {"x": -894, "y": -1752}, "treatments": [
+			{"_id": 0, "treatmentTypeId": 0}
+		]},
+		{"_id": 1, "location": {"x": 1058, "y": 3482}, "treatments": [
+			{"_id": 1, "treatmentTypeId": 0},
+			{"_id": 2, "treatmentTypeId": 1}
+		]}
+	]
+}

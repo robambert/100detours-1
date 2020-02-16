@@ -1,0 +1,7 @@
+[
+	{
+		"car_speed":15,
+		"walk_speed":5,
+		"min_car_distance":1000
+	}
+]

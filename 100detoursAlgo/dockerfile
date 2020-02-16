@@ -1,0 +1,15 @@
+FROM mcr.microsoft.com/dotnet/framework/runtime:4.8-windowsservercore-ltsc2019
+ADD https://aka.ms/vs/15/release/vs_professional.exe C:\\TEMP\\vs_professional.exe
+
+# Add C:\Bin to PATH and install Build Tools with components we need
+ADD https://download.microsoft.com/download/6/A/A/6AA4EDFF-645B-48C5-81CC-ED5963AEAD48/vc_redist.x64.exe /vc_redist.x64.exe
+RUN C:\vc_redist.x64.exe /quiet /install
+
+COPY Allobobo.exe Allobobo.exe
+EXPOSE 4242
+# Start developer command prompt with any other commands specified.
+ENTRYPOINT "C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\Tools\VsDevCmd.bat" &&
+
+
+# Default to PowerShell if no other command specified.
+CMD ["powershell.exe", "-NoLogo", "-ExecutionPolicy", "Bypass"]

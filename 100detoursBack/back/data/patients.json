@@ -1,0 +1,16 @@
+[
+	{
+		"name": "Papy blessé",
+		"address": {
+			"x":15,
+			"y":16
+		}
+	},
+	{
+		"name": "Jean Neimar",
+		"address": {
+			"x":12,
+			"y":25
+		}
+	}
+]

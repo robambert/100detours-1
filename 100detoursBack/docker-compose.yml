@@ -1,0 +1,50 @@
+version: '3'
+services:
+  backend:
+    build:
+      context: ./
+    network_mode: "bridge"
+    restart: always
+    command: python run.py
+    ports:
+      - "5000:4000"
+    depends_on:
+      - mongodb
+    links:
+      - "mongodb:mongo"
+    environment: 
+      - MONGODB_URI=mongo:27017
+      - SERVER_NAME=localhost:4000
+      - FLASK_HOST=0.0.0.0
+      - FLASK_PORT=4000
+        
+  mongodb:
+    image: mongo:latest
+    network_mode: "bridge"
+    restart: always
+    environment:
+      - MONGO_INITDB_DATABASE=admin
+    volumes:
+      - data-volume:/data/db
+    ports:
+      - "27017:27017"
+  
+  mongo-express:
+      image: mongo-express
+      restart: always
+      network_mode: "bridge"
+      environment:
+        - ME_CONFIG_BASICAUTH_USERNAME=root
+        - ME_CONFIG_BASICAUTH_PASSWORD=nooneknows
+        - ME_CONFIG_MONGODB_PORT=27017
+        - ME_CONFIG_OPTIONS_EDITORTHEME=ambiance
+        - ME_CONFIG_MONGODB_SERVER=mongo
+        - ME_CONFIG_MONGODB_AUTH_DATABASE=admin
+      depends_on:
+        - mongodb
+      links:
+        - "mongodb:mongo"
+      ports:
+        - "8081:8081"
+volumes:
+  data-volume:

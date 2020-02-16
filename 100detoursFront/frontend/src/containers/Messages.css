@@ -1,0 +1,13 @@
+.message{
+    height:50px;
+    width:120px;
+    margin:4px;
+    padding: 15px;
+    border:1px solid #bcbcbc;
+    border-radius: 4px;
+}
+
+.messageList{
+    padding: 16px;
+
+}

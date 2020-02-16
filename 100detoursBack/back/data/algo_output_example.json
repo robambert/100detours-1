@@ -1,0 +1,7 @@
+{
+	"appointments": [
+		{"nurseId": 0, "patientId": 1, "treatmentId": 1, "schedule": 800},
+		{"nurseId": 1, "patientId": 1, "treatmentId": 0, "schedule": 700},
+		{"nurseId": 0, "patientId": 0, "treatmentId": 2, "schedule": 1100}
+	]
+}

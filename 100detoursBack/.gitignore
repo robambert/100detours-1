@@ -1,0 +1,7 @@
+# Specify filepatterns you want git to ignore.
+
+venv/
+*.egg-info
+*.sublime*
+__pycache__/
+Addok/
