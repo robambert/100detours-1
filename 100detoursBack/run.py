@@ -6,7 +6,7 @@ from flask import url_for
 
 if __name__ == "__main__":
     app = create_app()
-    host = app.config.get("FLASK_HOST", "127.0.0.1")
+    host = app.config.get("FLASK_HOST", "localhost")
     port = app.config.get("FLASK_PORT", 5000)
     servername = app.config["SERVER_NAME"]
     debug = app.config.get("DEBUG", True)
@@ -25,4 +25,4 @@ if __name__ == "__main__":
     #     print(url, rule.endpoint)
 
     print(f"Using Algo service URI: {app.config.get('ALGO_URI', None)}")
-    app.run(host=host, port=port, debug=debug)
+    app.run(host="0.0.0.0", debug=True)

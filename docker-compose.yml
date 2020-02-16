@@ -2,12 +2,12 @@ version: '3'
 services:
   backend:
     build:
-      context: ./
-    network_mode: "bridge"
+      context: ./100detoursBack
+    network_mode: bridge
     restart: always
-    command: python run.py
     ports:
-      - "5000:4000"
+      - "5000:5000"
+      - "5010:5010"
     depends_on:
       - mongodb
     links:
@@ -15,12 +15,23 @@ services:
     environment:
       - MONGODB_URI=mongo:27017
       - SERVER_NAME=localhost:5000
-      - FLASK_HOST=0.0.0.0
-      - FLASK_PORT=4000
+      - FLASK_HOST=localhost
+      - FLASK_PORT=5000
+
+  frontend:
+    build:
+      context: ./100detoursFront
+    network_mode: bridge
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    links:
+      - "backend:backend"
 
   mongodb:
     image: mongo:latest
-    network_mode: "bridge"
+    network_mode: bridge
     restart: always
     environment:
       - MONGO_INITDB_DATABASE=admin
@@ -32,7 +43,7 @@ services:
   mongo-express:
       image: mongo-express
       restart: always
-      network_mode: "bridge"
+      network_mode: bridge
       environment:
         - ME_CONFIG_BASICAUTH_USERNAME=root
         - ME_CONFIG_BASICAUTH_PASSWORD=nooneknows
