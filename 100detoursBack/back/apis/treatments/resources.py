@@ -2,11 +2,10 @@ from datetime import date
 
 from flask import request as r
 from flask_accepts import accepts
-from flask_jwt_extended import jwt_required
 from flask_restplus import Namespace, Resource
 
 from .models import TreatmentModel, TreatmentSchema
-from ..auth.utils import manager_required
+from ..auth.utils import manager_required, auth_required
 from ..common.query_language import filter_args, Fields
 from ..common.join_responds import responds
 
@@ -19,7 +18,7 @@ class Treatments(Resource):
 
     @filter_args(Fields.int("patient"), Fields.date("date"), Fields.int("nurse"), api=ns)
     @responds(schema=TreatmentSchema(many=True), api=ns)
-    @jwt_required
+    @auth_required
     def get(self):
         """Get all treatments."""
         return TreatmentModel.objects
@@ -39,7 +38,7 @@ class Treatments(Resource):
 class Treatment(Resource):
 
     @responds(schema=TreatmentSchema(), api=ns)
-    @jwt_required
+    @auth_required
     def get(self, rid):
         """Get a treatment."""
         return TreatmentModel.with_rid(rid)

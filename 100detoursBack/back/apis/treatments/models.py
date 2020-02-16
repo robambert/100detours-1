@@ -10,11 +10,11 @@ from ..treatment_types.models import TreatmentTypeModel, TreatmentTypeSchema
 
 class TreatmentModel(RidDocument):
     rid = SequenceField(unique=True)  # Overriding to use own counter rather than the one common to all RidDocument childs.
-    patient = ReferenceField(PatientModel, required=True)
-    ttype = ReferenceField(TreatmentTypeModel, required=True)
+    patient = ReferenceField(PatientModel, required=True, reverse_delete_rule=2)
+    ttype = ReferenceField(TreatmentTypeModel, required=True, reverse_delete_rule=2)
     date = DateField(required=True)
     time = DateTimeField(default=None)
-    nurse = ReferenceField(NurseModel, default=None)
+    nurse = ReferenceField(NurseModel, default=None, reverse_delete_rule=2)
 
 
 class TreatmentSchema(RidSchema):

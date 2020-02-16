@@ -4,7 +4,7 @@ from flask_jwt_extended import get_raw_jwt, get_jwt_claims, jwt_optional
 
 ns = Namespace("dev")
 
-
+@ns.hide
 @ns.route("/hello")
 class Hello(Resource):
 
@@ -12,6 +12,7 @@ class Hello(Resource):
         return {"messagge": "Hello World!"}
 
 
+@ns.hide
 @ns.route("/token")
 class Token(Resource):
 
@@ -20,6 +21,7 @@ class Token(Resource):
         return get_raw_jwt()
 
 
+@ns.hide
 @ns.route("/claims")
 class Claims(Resource):
 

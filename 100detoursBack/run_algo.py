@@ -1,11 +1,12 @@
 """
-Launch the main back-end server.
+Launch "algorithm" service server.
 """
+
 from back import create_app
 from flask import url_for
 
 if __name__ == "__main__":
-    app = create_app()
+    app = create_app(run_algo=True)
     host = app.config.get("FLASK_HOST", "127.0.0.1")
     port = app.config.get("FLASK_PORT", 5000)
     servername = app.config["SERVER_NAME"]

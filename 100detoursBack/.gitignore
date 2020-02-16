@@ -5,3 +5,4 @@ venv/
 *.sublime*
 __pycache__/
 Addok/
+.vscode/*

@@ -1,0 +1,1645 @@
+{
+    "swagger": "2.0",
+    "basePath": "/",
+    "paths": {
+        "/addok/{q}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Addok"
+                        }
+                    }
+                },
+                "summary": "[User] Validate an address and/or get autocompletion suggestions",
+                "operationId": "get_addok",
+                "parameters": [
+                    {
+                        "name": "q",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "Address query"
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "addok"
+                ]
+            }
+        },
+        "/algo/": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "summary": "[Manager] Request the algorithm to run with the current data",
+                "operationId": "post_algo",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Date"
+                        }
+                    }
+                ],
+                "tags": [
+                    "algo"
+                ]
+            }
+        },
+        "/auth/login": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Tokens"
+                        }
+                    }
+                },
+                "summary": "Login route",
+                "operationId": "post_login",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Credentials"
+                        }
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "security": [],
+                "tags": [
+                    "auth"
+                ]
+            }
+        },
+        "/auth/refresh": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Status message"
+                        }
+                    }
+                },
+                "summary": "[Refresh token required] Grant a new access token if refresh token is valid",
+                "operationId": "post_token_refresh",
+                "parameters": [
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "auth"
+                ]
+            }
+        },
+        "/auth/revoke-access": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Status message"
+                        }
+                    }
+                },
+                "summary": "[User] Revoke access token, refresh token status is unchanged",
+                "operationId": "post_revoke_access",
+                "parameters": [
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "auth"
+                ]
+            }
+        },
+        "/auth/revoke-refresh": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Status message"
+                        }
+                    }
+                },
+                "summary": "[Refresh token required] Revoke refresh token, access token status is unchanged",
+                "operationId": "post_revoke_refresh",
+                "parameters": [
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "auth"
+                ]
+            }
+        },
+        "/data/": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Data"
+                        }
+                    }
+                },
+                "summary": "[Manager] Return the algorithm parameters",
+                "operationId": "get_data",
+                "parameters": [
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "data"
+                ]
+            },
+            "put": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Data"
+                        }
+                    }
+                },
+                "summary": "[Manager] Update the algorithm parameters",
+                "operationId": "put_data",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Data"
+                        }
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "data"
+                ]
+            }
+        },
+        "/nurses/": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Nurse-dump"
+                            }
+                        }
+                    }
+                },
+                "summary": "[Manager] Get all nurses",
+                "operationId": "get_nurses",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "description": "Expect a string representing a list of string.\n\nEach element of the list must have the format 'base[.sub[.subsub[...]]' where base is the name of an rid field.\n\nExample:\nlet our document to be resolved be:\n`FooModel = {\n    rid: 2,\n    bar: \"hello\",\n    baz: 1.1\n}`\n\nand our normal response be:\n`{\n    \"foo\": 2,\n    \"someotherfield\": \"somevalue\"\n}`\n\nif JoinRID = [\"foo\"]\nthen the returned document would be:\n`{\n    \"foo\": 2,\n    \"foo_join\": {\n        rid: 2,\n        bar: \"hello\",\n        baz: 1.1\n    },\n    \"someotherfield\": \"somevalue\"\n}`\n\nand if JoinRID = [\"foo.bar\"]\nthen the returned document would be:\n`{\n    \"foo\": 2,\n    \"foo_join\": {\n        bar: \"hello\"\n    },\n    \"someotherfield\": \"somevalue\"\n}`\n",
+                        "name": "JoinRID",
+                        "type": "string"
+                    },
+                    {
+                        "description": "Parameters:\nrid: int\nname: string\nuser: string\ntreatment_types: int\nagenda: date or datetime [format 'yyyy-mm-ddThh:mm:ss' or 'yyyy-mm-dd']\n\n\nQuery filter language:\n\narg=val ...................... Equal\narg=ne:val ................... Different from\narg=gt:val ................... Greater than\narg=gte:val .................. Greater than or equal\narg=lt:val ................... Lower than\narg=lte:val .................. Lower than or equal\narg=btw:(val1,val2) .......... Between val1 (included) and val2 (excluded)\narg=nbtw:(val1,val2) ......... Lower than val1 (excluded) and bigger than val2 (included)\narg=in:(val1,[vals,..]) ...... One of val1, val2, ...\narg=nin:(val1,[vals,..]) ..... Not one of val1, val2, ...\n\nIf the field is a list, the filtering operation is applied to each element rather than the list itself;\nif the filtered list is empty, the whole document is discarded. \n\nYou can use quotation marks if treat any enclosed char as litterals.\nYou can escape quotation marks using '\\'.\n\nExample:\n?date=lt:2020-01-25&name=Jean Dupont\n?my_str=in:(Hello, \"Oh, hi \\\"Mark\\\"\")\n",
+                        "name": "{filter(s)}",
+                        "type": "string",
+                        "in": "query"
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "nurses"
+                ]
+            },
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Nurse-dump"
+                        }
+                    }
+                },
+                "summary": "[Manager] Add a new nurse",
+                "description": "(Also create a new User in the process)",
+                "operationId": "post_nurses",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/HackNurse-load"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "description": "Expect a string representing a list of string.\n\nEach element of the list must have the format 'base[.sub[.subsub[...]]' where base is the name of an rid field.\n\nExample:\nlet our document to be resolved be:\n`FooModel = {\n    rid: 2,\n    bar: \"hello\",\n    baz: 1.1\n}`\n\nand our normal response be:\n`{\n    \"foo\": 2,\n    \"someotherfield\": \"somevalue\"\n}`\n\nif JoinRID = [\"foo\"]\nthen the returned document would be:\n`{\n    \"foo\": 2,\n    \"foo_join\": {\n        rid: 2,\n        bar: \"hello\",\n        baz: 1.1\n    },\n    \"someotherfield\": \"somevalue\"\n}`\n\nand if JoinRID = [\"foo.bar\"]\nthen the returned document would be:\n`{\n    \"foo\": 2,\n    \"foo_join\": {\n        bar: \"hello\"\n    },\n    \"someotherfield\": \"somevalue\"\n}`\n",
+                        "name": "JoinRID",
+                        "type": "string"
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "nurses"
+                ]
+            }
+        },
+        "/nurses/{rid}": {
+            "parameters": [
+                {
+                    "description": "The nurse rid (index start from 1)",
+                    "name": "rid",
+                    "in": "path",
+                    "required": true,
+                    "type": "integer"
+                }
+            ],
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Nurse-dump"
+                        }
+                    }
+                },
+                "summary": "[Manager/Owner] Get a single nurse",
+                "operationId": "get_nurse",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "description": "Expect a string representing a list of string.\n\nEach element of the list must have the format 'base[.sub[.subsub[...]]' where base is the name of an rid field.\n\nExample:\nlet our document to be resolved be:\n`FooModel = {\n    rid: 2,\n    bar: \"hello\",\n    baz: 1.1\n}`\n\nand our normal response be:\n`{\n    \"foo\": 2,\n    \"someotherfield\": \"somevalue\"\n}`\n\nif JoinRID = [\"foo\"]\nthen the returned document would be:\n`{\n    \"foo\": 2,\n    \"foo_join\": {\n        rid: 2,\n        bar: \"hello\",\n        baz: 1.1\n    },\n    \"someotherfield\": \"somevalue\"\n}`\n\nand if JoinRID = [\"foo.bar\"]\nthen the returned document would be:\n`{\n    \"foo\": 2,\n    \"foo_join\": {\n        bar: \"hello\"\n    },\n    \"someotherfield\": \"somevalue\"\n}`\n",
+                        "name": "JoinRID",
+                        "type": "string"
+                    },
+                    {
+                        "description": "Parameters:\nagenda: date or datetime [format 'yyyy-mm-ddThh:mm:ss' or 'yyyy-mm-dd']\n\n\nQuery filter language:\n\narg=val ...................... Equal\narg=ne:val ................... Different from\narg=gt:val ................... Greater than\narg=gte:val .................. Greater than or equal\narg=lt:val ................... Lower than\narg=lte:val .................. Lower than or equal\narg=btw:(val1,val2) .......... Between val1 (included) and val2 (excluded)\narg=nbtw:(val1,val2) ......... Lower than val1 (excluded) and bigger than val2 (included)\narg=in:(val1,[vals,..]) ...... One of val1, val2, ...\narg=nin:(val1,[vals,..]) ..... Not one of val1, val2, ...\n\nIf the field is a list, the filtering operation is applied to each element rather than the list itself;\nif the filtered list is empty, the whole document is discarded. \n\nYou can use quotation marks if treat any enclosed char as litterals.\nYou can escape quotation marks using '\\'.\n\nExample:\n?date=lt:2020-01-25&name=Jean Dupont\n?my_str=in:(Hello, \"Oh, hi \\\"Mark\\\"\")\n",
+                        "name": "{filter(s)}",
+                        "type": "string",
+                        "in": "query"
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "nurses"
+                ]
+            },
+            "put": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Nurse-dump"
+                        }
+                    }
+                },
+                "summary": "[Manager/Owner] Update a nurse",
+                "operationId": "put_nurse",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Nurse-load"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "description": "Expect a string representing a list of string.\n\nEach element of the list must have the format 'base[.sub[.subsub[...]]' where base is the name of an rid field.\n\nExample:\nlet our document to be resolved be:\n`FooModel = {\n    rid: 2,\n    bar: \"hello\",\n    baz: 1.1\n}`\n\nand our normal response be:\n`{\n    \"foo\": 2,\n    \"someotherfield\": \"somevalue\"\n}`\n\nif JoinRID = [\"foo\"]\nthen the returned document would be:\n`{\n    \"foo\": 2,\n    \"foo_join\": {\n        rid: 2,\n        bar: \"hello\",\n        baz: 1.1\n    },\n    \"someotherfield\": \"somevalue\"\n}`\n\nand if JoinRID = [\"foo.bar\"]\nthen the returned document would be:\n`{\n    \"foo\": 2,\n    \"foo_join\": {\n        bar: \"hello\"\n    },\n    \"someotherfield\": \"somevalue\"\n}`\n",
+                        "name": "JoinRID",
+                        "type": "string"
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "nurses"
+                ]
+            },
+            "delete": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "summary": "[Manager] Delete a nurse",
+                "operationId": "delete_nurse",
+                "tags": [
+                    "nurses"
+                ]
+            }
+        },
+        "/nurses/{rid}/agenda": {
+            "parameters": [
+                {
+                    "description": "The nurse rid (index start from 1)",
+                    "name": "rid",
+                    "in": "path",
+                    "required": true,
+                    "type": "integer"
+                }
+            ],
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Agenda"
+                        }
+                    }
+                },
+                "summary": "[Manager/Owner] Get a nurse agenda",
+                "operationId": "get_nurse_agenda",
+                "parameters": [
+                    {
+                        "description": "Parameters:\n\n\nQuery filter language:\n\narg=val ...................... Equal\narg=ne:val ................... Different from\narg=gt:val ................... Greater than\narg=gte:val .................. Greater than or equal\narg=lt:val ................... Lower than\narg=lte:val .................. Lower than or equal\narg=btw:(val1,val2) .......... Between val1 (included) and val2 (excluded)\narg=nbtw:(val1,val2) ......... Lower than val1 (excluded) and bigger than val2 (included)\narg=in:(val1,[vals,..]) ...... One of val1, val2, ...\narg=nin:(val1,[vals,..]) ..... Not one of val1, val2, ...\n\nIf the field is a list, the filtering operation is applied to each element rather than the list itself;\nif the filtered list is empty, the whole document is discarded. \n\nYou can use quotation marks if treat any enclosed char as litterals.\nYou can escape quotation marks using '\\'.\n\nExample:\n?date=lt:2020-01-25&name=Jean Dupont\n?my_str=in:(Hello, \"Oh, hi \\\"Mark\\\"\")\n",
+                        "name": "{filter(s)}",
+                        "type": "string",
+                        "in": "query"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Expect a string representing a list of string.\n\nEach element of the list must have the format 'base[.sub[.subsub[...]]' where base is the name of an rid field.\n\nExample:\nlet our document to be resolved be:\n`FooModel = {\n    rid: 2,\n    bar: \"hello\",\n    baz: 1.1\n}`\n\nand our normal response be:\n`{\n    \"foo\": 2,\n    \"someotherfield\": \"somevalue\"\n}`\n\nif JoinRID = [\"foo\"]\nthen the returned document would be:\n`{\n    \"foo\": 2,\n    \"foo_join\": {\n        rid: 2,\n        bar: \"hello\",\n        baz: 1.1\n    },\n    \"someotherfield\": \"somevalue\"\n}`\n\nand if JoinRID = [\"foo.bar\"]\nthen the returned document would be:\n`{\n    \"foo\": 2,\n    \"foo_join\": {\n        bar: \"hello\"\n    },\n    \"someotherfield\": \"somevalue\"\n}`\n",
+                        "name": "JoinRID",
+                        "type": "string"
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "nurses"
+                ]
+            },
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Agenda"
+                        }
+                    }
+                },
+                "summary": "[Manager/Owner] Add one or multiple entries to the agenda",
+                "operationId": "post_nurse_agenda",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Agenda"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "description": "Expect a string representing a list of string.\n\nEach element of the list must have the format 'base[.sub[.subsub[...]]' where base is the name of an rid field.\n\nExample:\nlet our document to be resolved be:\n`FooModel = {\n    rid: 2,\n    bar: \"hello\",\n    baz: 1.1\n}`\n\nand our normal response be:\n`{\n    \"foo\": 2,\n    \"someotherfield\": \"somevalue\"\n}`\n\nif JoinRID = [\"foo\"]\nthen the returned document would be:\n`{\n    \"foo\": 2,\n    \"foo_join\": {\n        rid: 2,\n        bar: \"hello\",\n        baz: 1.1\n    },\n    \"someotherfield\": \"somevalue\"\n}`\n\nand if JoinRID = [\"foo.bar\"]\nthen the returned document would be:\n`{\n    \"foo\": 2,\n    \"foo_join\": {\n        bar: \"hello\"\n    },\n    \"someotherfield\": \"somevalue\"\n}`\n",
+                        "name": "JoinRID",
+                        "type": "string"
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "nurses"
+                ]
+            },
+            "delete": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Agenda"
+                        }
+                    }
+                },
+                "summary": "[Manager] Remove one or multiple entries in the agenda",
+                "operationId": "delete_nurse_agenda",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Agenda"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "description": "Expect a string representing a list of string.\n\nEach element of the list must have the format 'base[.sub[.subsub[...]]' where base is the name of an rid field.\n\nExample:\nlet our document to be resolved be:\n`FooModel = {\n    rid: 2,\n    bar: \"hello\",\n    baz: 1.1\n}`\n\nand our normal response be:\n`{\n    \"foo\": 2,\n    \"someotherfield\": \"somevalue\"\n}`\n\nif JoinRID = [\"foo\"]\nthen the returned document would be:\n`{\n    \"foo\": 2,\n    \"foo_join\": {\n        rid: 2,\n        bar: \"hello\",\n        baz: 1.1\n    },\n    \"someotherfield\": \"somevalue\"\n}`\n\nand if JoinRID = [\"foo.bar\"]\nthen the returned document would be:\n`{\n    \"foo\": 2,\n    \"foo_join\": {\n        bar: \"hello\"\n    },\n    \"someotherfield\": \"somevalue\"\n}`\n",
+                        "name": "JoinRID",
+                        "type": "string"
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "nurses"
+                ]
+            }
+        },
+        "/patients/": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Patient-dump"
+                            }
+                        }
+                    }
+                },
+                "summary": "[Manager] Get all patients",
+                "operationId": "get_patients",
+                "parameters": [
+                    {
+                        "description": "Parameters:\nname: string\naddress: string\n\n\nQuery filter language:\n\narg=val ...................... Equal\narg=ne:val ................... Different from\narg=gt:val ................... Greater than\narg=gte:val .................. Greater than or equal\narg=lt:val ................... Lower than\narg=lte:val .................. Lower than or equal\narg=btw:(val1,val2) .......... Between val1 (included) and val2 (excluded)\narg=nbtw:(val1,val2) ......... Lower than val1 (excluded) and bigger than val2 (included)\narg=in:(val1,[vals,..]) ...... One of val1, val2, ...\narg=nin:(val1,[vals,..]) ..... Not one of val1, val2, ...\n\nIf the field is a list, the filtering operation is applied to each element rather than the list itself;\nif the filtered list is empty, the whole document is discarded. \n\nYou can use quotation marks if treat any enclosed char as litterals.\nYou can escape quotation marks using '\\'.\n\nExample:\n?date=lt:2020-01-25&name=Jean Dupont\n?my_str=in:(Hello, \"Oh, hi \\\"Mark\\\"\")\n",
+                        "name": "{filter(s)}",
+                        "type": "string",
+                        "in": "query"
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "patients"
+                ]
+            },
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Patient-dump"
+                        }
+                    }
+                },
+                "summary": "[Manager] Add a new patient",
+                "operationId": "post_patients",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Patient-load"
+                        }
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "patients"
+                ]
+            }
+        },
+        "/patients/{rid}": {
+            "parameters": [
+                {
+                    "description": "The patient rid (index start from 1)",
+                    "name": "rid",
+                    "in": "path",
+                    "required": true,
+                    "type": "integer"
+                }
+            ],
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Patient-dump"
+                        }
+                    }
+                },
+                "summary": "[User] Get a single patient",
+                "operationId": "get_patient",
+                "parameters": [
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "patients"
+                ]
+            },
+            "put": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Patient-dump"
+                        }
+                    }
+                },
+                "summary": "[Manager] Update a patient",
+                "operationId": "put_patient",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Patient-load"
+                        }
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "patients"
+                ]
+            },
+            "delete": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "summary": "[Manager] Delete a patient",
+                "operationId": "delete_patient",
+                "tags": [
+                    "patients"
+                ]
+            }
+        },
+        "/treatments/": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Treatment-dump"
+                            }
+                        }
+                    }
+                },
+                "summary": "[User] Get all treatments",
+                "operationId": "get_treatments",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "description": "Expect a string representing a list of string.\n\nEach element of the list must have the format 'base[.sub[.subsub[...]]' where base is the name of an rid field.\n\nExample:\nlet our document to be resolved be:\n`FooModel = {\n    rid: 2,\n    bar: \"hello\",\n    baz: 1.1\n}`\n\nand our normal response be:\n`{\n    \"foo\": 2,\n    \"someotherfield\": \"somevalue\"\n}`\n\nif JoinRID = [\"foo\"]\nthen the returned document would be:\n`{\n    \"foo\": 2,\n    \"foo_join\": {\n        rid: 2,\n        bar: \"hello\",\n        baz: 1.1\n    },\n    \"someotherfield\": \"somevalue\"\n}`\n\nand if JoinRID = [\"foo.bar\"]\nthen the returned document would be:\n`{\n    \"foo\": 2,\n    \"foo_join\": {\n        bar: \"hello\"\n    },\n    \"someotherfield\": \"somevalue\"\n}`\n",
+                        "name": "JoinRID",
+                        "type": "string"
+                    },
+                    {
+                        "description": "Parameters:\npatient: int\ndate: date [format 'yyyy-mm-dd']\nnurse: int\n\n\nQuery filter language:\n\narg=val ...................... Equal\narg=ne:val ................... Different from\narg=gt:val ................... Greater than\narg=gte:val .................. Greater than or equal\narg=lt:val ................... Lower than\narg=lte:val .................. Lower than or equal\narg=btw:(val1,val2) .......... Between val1 (included) and val2 (excluded)\narg=nbtw:(val1,val2) ......... Lower than val1 (excluded) and bigger than val2 (included)\narg=in:(val1,[vals,..]) ...... One of val1, val2, ...\narg=nin:(val1,[vals,..]) ..... Not one of val1, val2, ...\n\nIf the field is a list, the filtering operation is applied to each element rather than the list itself;\nif the filtered list is empty, the whole document is discarded. \n\nYou can use quotation marks if treat any enclosed char as litterals.\nYou can escape quotation marks using '\\'.\n\nExample:\n?date=lt:2020-01-25&name=Jean Dupont\n?my_str=in:(Hello, \"Oh, hi \\\"Mark\\\"\")\n",
+                        "name": "{filter(s)}",
+                        "type": "string",
+                        "in": "query"
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "treatments"
+                ]
+            },
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Treatment-dump"
+                        }
+                    }
+                },
+                "summary": "[Manager] Create a new treatment",
+                "operationId": "post_treatments",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Treatment-load"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "description": "Expect a string representing a list of string.\n\nEach element of the list must have the format 'base[.sub[.subsub[...]]' where base is the name of an rid field.\n\nExample:\nlet our document to be resolved be:\n`FooModel = {\n    rid: 2,\n    bar: \"hello\",\n    baz: 1.1\n}`\n\nand our normal response be:\n`{\n    \"foo\": 2,\n    \"someotherfield\": \"somevalue\"\n}`\n\nif JoinRID = [\"foo\"]\nthen the returned document would be:\n`{\n    \"foo\": 2,\n    \"foo_join\": {\n        rid: 2,\n        bar: \"hello\",\n        baz: 1.1\n    },\n    \"someotherfield\": \"somevalue\"\n}`\n\nand if JoinRID = [\"foo.bar\"]\nthen the returned document would be:\n`{\n    \"foo\": 2,\n    \"foo_join\": {\n        bar: \"hello\"\n    },\n    \"someotherfield\": \"somevalue\"\n}`\n",
+                        "name": "JoinRID",
+                        "type": "string"
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "treatments"
+                ]
+            }
+        },
+        "/treatments/{rid}": {
+            "parameters": [
+                {
+                    "description": "The nurse rid (index start from 1)",
+                    "name": "rid",
+                    "in": "path",
+                    "required": true,
+                    "type": "integer"
+                }
+            ],
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Treatment-dump"
+                        }
+                    }
+                },
+                "summary": "[User] Get a treatment",
+                "operationId": "get_treatment",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "description": "Expect a string representing a list of string.\n\nEach element of the list must have the format 'base[.sub[.subsub[...]]' where base is the name of an rid field.\n\nExample:\nlet our document to be resolved be:\n`FooModel = {\n    rid: 2,\n    bar: \"hello\",\n    baz: 1.1\n}`\n\nand our normal response be:\n`{\n    \"foo\": 2,\n    \"someotherfield\": \"somevalue\"\n}`\n\nif JoinRID = [\"foo\"]\nthen the returned document would be:\n`{\n    \"foo\": 2,\n    \"foo_join\": {\n        rid: 2,\n        bar: \"hello\",\n        baz: 1.1\n    },\n    \"someotherfield\": \"somevalue\"\n}`\n\nand if JoinRID = [\"foo.bar\"]\nthen the returned document would be:\n`{\n    \"foo\": 2,\n    \"foo_join\": {\n        bar: \"hello\"\n    },\n    \"someotherfield\": \"somevalue\"\n}`\n",
+                        "name": "JoinRID",
+                        "type": "string"
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "treatments"
+                ]
+            },
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Treatment-dump"
+                        }
+                    }
+                },
+                "summary": "[Manager] (Partially) update a treatment",
+                "operationId": "post_treatment",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Treatment-load"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "description": "Expect a string representing a list of string.\n\nEach element of the list must have the format 'base[.sub[.subsub[...]]' where base is the name of an rid field.\n\nExample:\nlet our document to be resolved be:\n`FooModel = {\n    rid: 2,\n    bar: \"hello\",\n    baz: 1.1\n}`\n\nand our normal response be:\n`{\n    \"foo\": 2,\n    \"someotherfield\": \"somevalue\"\n}`\n\nif JoinRID = [\"foo\"]\nthen the returned document would be:\n`{\n    \"foo\": 2,\n    \"foo_join\": {\n        rid: 2,\n        bar: \"hello\",\n        baz: 1.1\n    },\n    \"someotherfield\": \"somevalue\"\n}`\n\nand if JoinRID = [\"foo.bar\"]\nthen the returned document would be:\n`{\n    \"foo\": 2,\n    \"foo_join\": {\n        bar: \"hello\"\n    },\n    \"someotherfield\": \"somevalue\"\n}`\n",
+                        "name": "JoinRID",
+                        "type": "string"
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "treatments"
+                ]
+            },
+            "delete": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "summary": "[Manager] Delete a treatment",
+                "operationId": "delete_treatment",
+                "tags": [
+                    "treatments"
+                ]
+            }
+        },
+        "/ttyes/": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/TreatmentType-dump"
+                            }
+                        }
+                    }
+                },
+                "summary": "[User] All treatment types",
+                "operationId": "get_treatment_types",
+                "parameters": [
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "ttyes"
+                ]
+            },
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/TreatmentType-dump"
+                        }
+                    }
+                },
+                "summary": "[Manager] Add a treatment type",
+                "operationId": "post_treatment_types",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/TreatmentType-load"
+                        }
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "ttyes"
+                ]
+            }
+        },
+        "/ttyes/{rid}": {
+            "parameters": [
+                {
+                    "description": "The treatment type rid (index start from 1)",
+                    "name": "rid",
+                    "in": "path",
+                    "required": true,
+                    "type": "integer"
+                }
+            ],
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/TreatmentType-dump"
+                        }
+                    }
+                },
+                "summary": "[User] Get a single treatment type",
+                "operationId": "get_treatment_type",
+                "parameters": [
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "ttyes"
+                ]
+            },
+            "put": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/TreatmentType-dump"
+                        }
+                    }
+                },
+                "summary": "[Manager] Update a treatment type",
+                "operationId": "put_treatment_type",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/TreatmentType-load"
+                        }
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "ttyes"
+                ]
+            },
+            "delete": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "summary": "[Manager] Delete a treatment type",
+                "operationId": "delete_treatment_type",
+                "tags": [
+                    "ttyes"
+                ]
+            }
+        },
+        "/users/": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/User-dump"
+                            }
+                        }
+                    }
+                },
+                "summary": "[Manager] Get all users",
+                "operationId": "get_users",
+                "parameters": [
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "users"
+                ]
+            },
+            "post": {
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/User-dump"
+                        }
+                    }
+                },
+                "summary": "[Manager] Add a user",
+                "operationId": "post_users",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/User-load"
+                        }
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "users"
+                ]
+            }
+        },
+        "/users/{rid}": {
+            "parameters": [
+                {
+                    "in": "path",
+                    "description": "The user rid (index start from 1)",
+                    "name": "rid",
+                    "required": true,
+                    "type": "integer"
+                }
+            ],
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/User-dump"
+                        }
+                    }
+                },
+                "summary": "[Manager/Owner] Get a single user",
+                "operationId": "get_user",
+                "parameters": [
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "users"
+                ]
+            },
+            "put": {
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/User-dump"
+                        }
+                    }
+                },
+                "summary": "[Manager] Update a user",
+                "operationId": "put_user",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/User-load"
+                        }
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "users"
+                ]
+            },
+            "delete": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "summary": "[Manager] Delete a user",
+                "operationId": "delete_user",
+                "tags": [
+                    "users"
+                ]
+            }
+        },
+        "/users/{rid}/password": {
+            "parameters": [
+                {
+                    "description": "The user rid (index start from 1)",
+                    "name": "rid",
+                    "in": "path",
+                    "required": true,
+                    "type": "integer"
+                }
+            ],
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "summary": "[Manager/Owner] Update a user's password",
+                "operationId": "post_user_password",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/PasswordSchema"
+                        }
+                    }
+                ],
+                "tags": [
+                    "users"
+                ]
+            }
+        }
+    },
+    "info": {
+        "title": "100detours back server and apis",
+        "version": "1.0.0",
+        "description": "Handles authorization, db and resources"
+    },
+    "produces": [
+        "application/json"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "securityDefinitions": {
+        "bearer": {
+            "type": "apiKey",
+            "in": "Header",
+            "name": "Authorization"
+        }
+    },
+    "security": [
+        {
+            "bearer": []
+        }
+    ],
+    "tags": [
+        {
+            "name": "auth",
+            "description": "Login and authorization related operation"
+        },
+        {
+            "name": "users",
+            "description": "Users related operations."
+        },
+        {
+            "name": "treatments",
+            "description": "Treatments related operations"
+        },
+        {
+            "name": "ttyes",
+            "description": "Treatments types related operations."
+        },
+        {
+            "name": "nurses",
+            "description": "Nurses related operations"
+        },
+        {
+            "name": "patients",
+            "description": "Patients related operations"
+        },
+        {
+            "name": "data",
+            "description": "Get and update global data for algorithm (walk speed, car speed, ...)."
+        },
+        {
+            "name": "addok",
+            "description": "Address autocomplete and validation routes."
+        },
+        {
+            "name": "algo",
+            "description": "Launch algo"
+        }
+    ],
+    "definitions": {
+        "Credentials": {
+            "properties": {
+                "username": {
+                    "type": "string",
+                    "example": "admin"
+                },
+                "password": {
+                    "type": "string",
+                    "example": "100detours"
+                }
+            },
+            "type": "object"
+        },
+        "Tokens": {
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "access_token": {
+                    "type": "string"
+                },
+                "refresh_token": {
+                    "type": "string"
+                },
+                "usertype": {
+                    "type": "integer"
+                },
+                "nurse_rid": {
+                    "type": "integer"
+                },
+                "user_rid": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "Status message": {
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "User-load": {
+            "required": [
+                "password",
+                "username",
+                "usertype"
+            ],
+            "properties": {
+                "username": {
+                    "type": "string"
+                },
+                "usertype": {
+                    "type": "integer",
+                    "description": "Table:\n\t0: manager\t1: nurse"
+                },
+                "password": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "User-dump": {
+            "required": [
+                "username",
+                "usertype"
+            ],
+            "properties": {
+                "rid": {
+                    "type": "integer",
+                    "description": "This resource identifier (automaticaly assigned upon resource creation)."
+                },
+                "username": {
+                    "type": "string"
+                },
+                "usertype": {
+                    "type": "integer",
+                    "description": "Table:\n\t0: manager\t1: nurse"
+                }
+            },
+            "type": "object"
+        },
+        "PasswordSchema": {
+            "properties": {
+                "new_password": {
+                    "type": "string"
+                },
+                "current_password": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Treatment-load": {
+            "required": [
+                "date",
+                "patient",
+                "ttype"
+            ],
+            "properties": {
+                "patient": {
+                    "type": "integer"
+                },
+                "ttype": {
+                    "type": "integer"
+                },
+                "date": {
+                    "type": "string",
+                    "format": "date"
+                }
+            },
+            "type": "object"
+        },
+        "Treatment-dump": {
+            "required": [
+                "date",
+                "patient",
+                "ttype"
+            ],
+            "properties": {
+                "rid": {
+                    "type": "integer",
+                    "description": "This resource identifier (automaticaly assigned upon resource creation)."
+                },
+                "patient": {
+                    "type": "integer"
+                },
+                "ttype": {
+                    "type": "integer"
+                },
+                "date": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "time": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "nurse": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "TreatmentType-load": {
+            "required": [
+                "code",
+                "duration"
+            ],
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "duration": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "TreatmentType-dump": {
+            "required": [
+                "code",
+                "duration"
+            ],
+            "properties": {
+                "rid": {
+                    "type": "integer",
+                    "description": "This resource identifier (automaticaly assigned upon resource creation)."
+                },
+                "code": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "duration": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "HackNurse-load": {
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "treatment_types": {
+                    "type": "array",
+                    "description": "List of treatment_types RIDs",
+                    "default": [],
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "agenda": {
+                    "type": "array",
+                    "description": "List of this nurse work start times, can only contains one element for a given day.",
+                    "default": [],
+                    "items": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "Nurse-dump": {
+            "required": [
+                "agenda",
+                "name",
+                "treatment_types",
+                "user"
+            ],
+            "properties": {
+                "rid": {
+                    "type": "integer",
+                    "description": "This resource identifier (automaticaly assigned upon resource creation)."
+                },
+                "user": {
+                    "type": "integer",
+                    "description": "The user RID to associate with the new nurse"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "treatment_types": {
+                    "type": "array",
+                    "description": "List of treatment_types RIDs",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "agenda": {
+                    "type": "array",
+                    "description": "List of this nurse work start times, can only contains one element for a given day.",
+                    "items": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "Nurse-load": {
+            "required": [
+                "agenda",
+                "name",
+                "treatment_types",
+                "user"
+            ],
+            "properties": {
+                "user": {
+                    "type": "integer",
+                    "description": "The user RID to associate with the new nurse"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "treatment_types": {
+                    "type": "array",
+                    "description": "List of treatment_types RIDs",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "agenda": {
+                    "type": "array",
+                    "description": "List of this nurse work start times, can only contains one element for a given day.",
+                    "items": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "Agenda": {
+            "required": [
+                "agenda"
+            ],
+            "properties": {
+                "agenda": {
+                    "type": "array",
+                    "description": "List of this nurse work start times, can only contains one element for a given day.",
+                    "items": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "Patient-load": {
+            "required": [
+                "address",
+                "name"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "address": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Patient-dump": {
+            "required": [
+                "address",
+                "name"
+            ],
+            "properties": {
+                "rid": {
+                    "type": "integer",
+                    "description": "This resource identifier (automaticaly assigned upon resource creation)."
+                },
+                "name": {
+                    "type": "string"
+                },
+                "address": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Data": {
+            "required": [
+                "car_speed",
+                "min_car_distance",
+                "walk_speed"
+            ],
+            "properties": {
+                "car_speed": {
+                    "type": "integer"
+                },
+                "walk_speed": {
+                    "type": "integer"
+                },
+                "min_car_distance": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "Addok": {
+            "required": [
+                "candidates",
+                "valid"
+            ],
+            "properties": {
+                "valid": {
+                    "type": "integer"
+                },
+                "candidates": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Candidate"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "Candidate": {
+            "required": [
+                "address",
+                "coords"
+            ],
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "coords": {
+                    "$ref": "#/definitions/Coords"
+                }
+            },
+            "type": "object"
+        },
+        "Coords": {
+            "required": [
+                "lat",
+                "lon"
+            ],
+            "properties": {
+                "lat": {
+                    "type": "number"
+                },
+                "lon": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "Date": {
+            "properties": {
+                "date": {
+                    "type": "string",
+                    "format": "date"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "responses": {
+        "ParseError": {
+            "description": "When a mask can't be parsed"
+        },
+        "MaskError": {
+            "description": "When any error occurs on mask"
+        }
+    },
+    "host": "127.0.0.1:5000"
+}

@@ -9,11 +9,22 @@ from .patients.resources import ns as patient_ns
 from .treatments.resources import ns as treatment_ns
 from .treatment_types.resources import ns as ttype_ns
 from .users.resources import ns as users_ns
+from .algo.resources import ns as algo_ns
+
+auths = {
+    "bearer": {
+        "type": "apiKey",
+        "in": "Header",
+        "name": "Authorization"
+    }
+}
 
 api = Api(
     title="100detours back server and apis",
     description="Handles authorization, db and resources",
-    version="1.0.0"
+    version="1.0.0",
+    security=["bearer"],
+    authorizations=auths
 )
 
 
@@ -26,3 +37,4 @@ api.add_namespace(nurse_ns)
 api.add_namespace(patient_ns)
 api.add_namespace(data_ns)
 api.add_namespace(addok_ns)
+api.add_namespace(algo_ns)

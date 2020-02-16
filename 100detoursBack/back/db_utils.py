@@ -1,5 +1,6 @@
 from os import path
 import re
+import unicodedata
 
 from werkzeug.exceptions import HTTPException
 from marshmallow import pprint
@@ -8,9 +9,13 @@ from .extensions import db
 from .apis.users.models import UserSchema
 from .apis.treatment_types.models import TreatmentTypeSchema
 from .apis.nurses.models import NurseSchema
-from .apis.patients.models import PatientSchema
+from .apis.patients.models import _PatientSchemaAll
 from .apis.treatments.models import _TreatmentSchemaLoadAll
 from .apis.data.models import DataSchema
+
+
+def make_ascii(text):
+    return unicodedata.normalize('NFD', text).encode('ascii', 'ignore')
 
 
 BASE_DIR_DATA = path.join(path.dirname(path.abspath(__file__)), "data")
@@ -20,7 +25,7 @@ INIT_DATA = [
     (UserSchema(), "users.json"),
     (TreatmentTypeSchema(), "ttypes.json"),
     (NurseSchema(), "nurses.json"),
-    (PatientSchema(), "patients.json"),
+    (_PatientSchemaAll(), "patients.json"),
     (_TreatmentSchemaLoadAll(), "treatments.json"),
     (DataSchema(), "data.json")
 ]
@@ -50,7 +55,7 @@ def reinit_db():
     try:
         for schema, data_file in INIT_DATA:
             print(f"Parsing {data_file}")
-            with open(path.join(BASE_DIR_DATA, data_file), "r") as file:
+            with open(path.join(BASE_DIR_DATA, data_file), "r", encoding="utf8") as file:
                 docs = schema.loads(file.read(), many=True)
                 for doc in docs:
                     try:

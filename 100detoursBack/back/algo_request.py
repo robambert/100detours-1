@@ -2,24 +2,35 @@ import copy
 import requests
 import datetime
 
+from haversine import haversine, Unit
 from marshmallow import pprint
 
 from .apis.data.models import DataModel, DataSchema
 from .apis.treatment_types.models import TreatmentTypeSchema, TreatmentTypeModel
 from .apis.nurses.models import NurseModel, NurseSchema
-from .apis.patients.models import PatientModel, PatientSchema
+from .apis.patients.models import PatientModel, _PatientSchemaAll
 from .apis.treatments.models import TreatmentModel, TreatmentSchema
 
 
 dataSchema = DataSchema()
 ttypeSchema = TreatmentTypeSchema(only=('rid', 'duration'))
 nurseSchema = NurseSchema(only=('rid', 'treatment_types', 'agenda'))
-patientSchema = PatientSchema(only=('rid', 'address'))
+patientSchema = _PatientSchemaAll(only=('rid', 'address'))
 treatmentSchema = TreatmentSchema(only=('rid', 'patient', 'ttype', 'date'))
 
 
-def get_mid():
-    pass
+def sign(cond):
+    return 1 if cond else -1
+
+def get_mid(patients):
+    mid_lat = 0.
+    mid_lon = 0.
+    for pat in patients:
+        mid_lat += pat["address"]["lat"]
+        mid_lon += pat["address"]["lon"]
+    mid_lat = mid_lat / len(patients)
+    mid_lon = mid_lon / len(patients)
+    return mid_lat, mid_lon
 
 
 def datetime_to_mins(val):
@@ -62,6 +73,18 @@ def filter_treatments(treatments, date):
     return ret
 
 
+def format_patients(patients):
+    ry, rx = get_mid(patients)
+    for pat in patients:
+        x = pat["address"]["lon"]
+        y = pat["address"]["lat"]
+        pat["address"] = dict(
+            x=sign(rx < x) * round(haversine((rx, ry), (x, ry), unit=Unit.METERS)/1.7),
+            y=sign(ry < y) * round(haversine((rx, ry), (rx, y), unit=Unit.METERS)/1.7)
+        )
+    return patients
+
+
 def remap_keys_intputs(data):
     ret = dict()
     ret["carSpeed"] = data["car_speed"]
@@ -102,6 +125,7 @@ def remap_keys_intputs(data):
         tmp["treatmentTypeId"] = entry["ttype"]
         ret["patients"][rid_to_idx[entry["patient"]]]["treatments"].append(tmp)
 
+    ret["patients"] = [pat for pat in ret["patients"] if pat["treatments"]]
     return ret
 
 
@@ -117,6 +141,7 @@ def prepare_inputs(date=None):
     nurses = filter_and_cast_nurses(nurses, date=date)
 
     patients = patientSchema.dump(PatientModel.objects, many=True)
+    patients = format_patients(patients)
 
     treatments = treatmentSchema.dump(TreatmentModel.objects, many=True)
     treatments = filter_treatments(treatments, date=date)
@@ -141,7 +166,8 @@ def request_algo(date, algo_url: str):
         algo_url += "/"
     data = prepare_inputs(date)
     formated = remap_keys_intputs(data)
-    pprint(formated, indent=2)
+    # pprint(formated["patients"][0], indent=2)
+    # exit()
     r = requests.post("http://" + algo_url, json=formated)
     r.raise_for_status()
     # pprint(r.json())

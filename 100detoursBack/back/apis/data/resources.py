@@ -20,6 +20,7 @@ class Data(Resource):
 
     @accepts(schema=DataSchema(partial=True), api=ns)
     @responds(schema=DataSchema(), api=ns)
+    @manager_required
     def put(self):
         """Update the algorithm parameters."""
         data = DataModel.objects.get()

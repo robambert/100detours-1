@@ -27,7 +27,7 @@ class Nurses(Resource):
     @responds(schema=NurseSchema(), api=ns)
     @manager_required
     def post(self):
-        """Add a new nurse."""
+        """Add a new nurse. (Also create a new User in the process)"""
         nurse = NurseModel(**request.parsed_obj)
         nurse.save()
         return nurse
@@ -39,14 +39,14 @@ class Nurse(Resource):
 
     @filter_args(Fields.date_or_datime("agenda"), api=ns, single=True)
     @responds(schema=NurseSchema(), api=ns)
-    @manager_or_owner_required
+    @manager_or_owner_required(NurseModel)
     def get(self, rid):
         """Get a single nurse."""
         return NurseModel.with_rid(rid)
 
     @accepts(schema=NurseSchema(partial=True), api=ns)
     @responds(schema=NurseSchema(), api=ns)
-    @manager_or_owner_required
+    @manager_or_owner_required(NurseModel)
     def put(self, rid):
         """Update a nurse."""
         nurse = NurseModel.with_rid(rid)
@@ -68,7 +68,7 @@ class Nurse(Resource):
 class NurseAgenda(Resource):
 
     @responds(schema=AgendaSchema(), api=ns)
-    @manager_or_owner_required
+    @manager_or_owner_required(NurseModel)
     @filter_args(api=ns)
     def get(self, rid):
         """Get a nurse agenda."""
@@ -79,7 +79,7 @@ class NurseAgenda(Resource):
 
     @accepts(schema=AgendaSchema(), api=ns)
     @responds(schema=AgendaSchema(), api=ns)
-    @manager_required
+    @manager_or_owner_required(NurseModel)
     def post(self, rid):
         """Add one or multiple entries to the agenda."""
         nurse: NurseModel = NurseModel.with_rid(rid)

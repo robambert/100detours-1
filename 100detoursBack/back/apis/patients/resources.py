@@ -3,7 +3,8 @@ from flask_restplus import Namespace, Resource, abort
 from flask_accepts import responds, accepts
 
 from .models import PatientModel, PatientSchema
-from ..auth.utils import manager_or_owner_required, manager_required, get_jwt_claims
+from ..auth.utils import manager_required, auth_required
+from ..common.query_language import filter_args, Fields
 
 
 ns = Namespace("patients", description="Patients related operations")
@@ -12,6 +13,10 @@ ns = Namespace("patients", description="Patients related operations")
 @ns.route("/")
 class Patients(Resource):
 
+    @filter_args(
+        Fields.str("name"),
+        Fields.str("address"),
+        api=ns)
     @responds(schema=PatientSchema(many=True), api=ns)
     @manager_required
     def get(self):
@@ -33,21 +38,18 @@ class Patients(Resource):
 class Patient(Resource):
 
     @responds(schema=PatientSchema(), api=ns)
-    @manager_or_owner_required
+    @auth_required
     def get(self, rid):
         """Get a single patient."""
         return PatientModel.with_rid(rid)
 
     @accepts(schema=PatientSchema(partial=True), api=ns)
     @responds(schema=PatientSchema(), api=ns)
-    @manager_or_owner_required
+    @manager_required
     def put(self, rid):
         """Update a patient."""
         patient = PatientModel.with_rid(rid)
-        args = request.parsed_obj
-        if get_jwt_claims()["usertype"] != 0 and "user" in args:
-            raise abort(403, "Not allowed to change user_rid")
-        patient.modify(**args)
+        patient.modify(**request.parsed_obj)
         return patient
 
     @manager_required

@@ -4,6 +4,8 @@ flask-cors
 flask-mongoengine
 flask-restplus
 flask-jwt-extended
+haversine
 marshmallow
 passlib
 requests
+werkzeug~=0.16.1

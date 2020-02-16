@@ -3,9 +3,10 @@ from collections import defaultdict
 from flask_restplus import abort
 from bson import json_util
 from flask_mongoengine import BaseQuerySet, Document
-from mongoengine import EmbeddedDocument, IntField, SequenceField, NotUniqueError, ListField, ValidationError, StringField, FloatField
-from marshmallow import fields
+from mongoengine import EmbeddedDocument, SequenceField, NotUniqueError, ListField, ValidationError, StringField, FloatField
+from marshmallow import fields, post_load, pre_dump
 from .marshmallow_utils import FlaskSchema
+from .utils import get_coords
 
 # ---- Extends Document class with RID (Ressource identifier) ----
 
@@ -116,19 +117,15 @@ class RidDocument(Document):
 # ---- Common models & schemas ----
 
 class AddressModel(EmbeddedDocument):
-    x = IntField()
-    y = IntField()
-    # lon = FloatField()
-    # lat = FloatField()
-    # addr = StringField()
+    lon = FloatField()
+    lat = FloatField()
+    addr = StringField()
 
 
 class AddressSchema(FlaskSchema):
-    x = fields.Int(help="Gonna disapear")
-    y = fields.Int(help="Gonna disapear")
-    # lon = fields.Float()
-    # lat = fields.Float()
-    # addr = fields.Str()
+    lon = fields.Float()
+    lat = fields.Float()
+    addr = fields.Str()
 
 
 # ---- Helper methods ----

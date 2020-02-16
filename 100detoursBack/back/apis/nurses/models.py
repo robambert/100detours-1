@@ -11,7 +11,7 @@ from ..treatment_types.models import TreatmentTypeModel, TreatmentTypeSchema
 
 class NurseModel(RidDocument):
     rid = SequenceField(unique=True)  # Overriding to use own counter rather than the one common to all RidDocument childs.
-    user = ReferenceField(UserModel, required=True, unique=True)
+    user = ReferenceField(UserModel, required=True, unique=True, reverse_delete_rule=2)
     name = StringField(min_lenght=1, max_length=255, required=True)
     treatment_types = ListField(ReferenceField(TreatmentTypeModel, required=False), default=list)
     agenda = SortedListField(DateTimeField(), required=False, default=list())
@@ -85,7 +85,7 @@ class HackNurseSchema(RidSchema):
         cnt = 2
         while(True):
             try:
-                user.username = username.lower()
+                user.username = username.lower().replace(" ", "")
                 user.save()
                 user.reload()
                 data["user"] = user

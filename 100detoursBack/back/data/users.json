@@ -1,32 +1,20 @@
-[
-	{
-		"username":"admin",
-		"password":"100detours",
-		"usertype":0
-	},
-	{
-		"username":"nurse1",
-		"password":"nurse1",
-		"usertype":1
-	},
-	{
-		"username":"nurse2",
-		"password":"nurse2",
-		"usertype":1
-	},
-	{
-		"username":"nurse3",
-		"password":"nurse3",
-		"usertype":1
-	},
-	{
-		"username":"nurse4",
-		"password":"nurse4",
-		"usertype":1
-	},
-	{
-		"username":"nurse5",
-		"password":"nurse5",
-		"usertype":1
-	}
-]
+[{"username": "admin", "password": "100detours", "usertype": 0},
+ {"username": "nurse1", "password": "nurse1", "usertype": 1},
+ {"username": "nurse2", "password": "nurse2", "usertype": 1},
+ {"username": "nurse3", "password": "nurse3", "usertype": 1},
+ {"username": "nurse4", "password": "nurse4", "usertype": 1},
+ {"username": "nurse5", "password": "nurse5", "usertype": 1},
+ {"username": "nurse6", "password": "nurse6", "usertype": 1},
+ {"username": "nurse7", "password": "nurse7", "usertype": 1},
+ {"username": "nurse8", "password": "nurse8", "usertype": 1},
+ {"username": "nurse9", "password": "nurse9", "usertype": 1},
+ {"username": "nurse10", "password": "nurse10", "usertype": 1},
+ {"username": "nurse11", "password": "nurse11", "usertype": 1},
+ {"username": "nurse12", "password": "nurse12", "usertype": 1},
+ {"username": "nurse13", "password": "nurse13", "usertype": 1},
+ {"username": "nurse14", "password": "nurse14", "usertype": 1},
+ {"username": "nurse15", "password": "nurse15", "usertype": 1},
+ {"username": "nurse16", "password": "nurse16", "usertype": 1},
+ {"username": "nurse17", "password": "nurse17", "usertype": 1},
+ {"username": "nurse18", "password": "nurse18", "usertype": 1},
+ {"username": "nurse19", "password": "nurse19", "usertype": 1}]

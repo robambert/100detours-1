@@ -54,7 +54,7 @@ def responds(model_name: str=None, schema=None, many: bool=False, api=None, stat
         wfn = _responds(model_name=model_name, schema=schema, many=many, api=api, status_code=status_code,
                         validate=validate, description=description, use_swagger=use_swagger)(fn)
         if api and use_swagger:
-            wfn = api.doc(params={"JoinRID": JOINRID_HEADER_DOC})(wfn)
+            wfn = api.param("JoinRID", JOINRID_HEADER_DOC, "header")(wfn)
         @wraps(wfn)
         def inner(*args, **kwargs):
             if schema is not None:

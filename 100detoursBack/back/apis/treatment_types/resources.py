@@ -1,10 +1,9 @@
 from flask import request
 from flask_restplus import Resource, Namespace
-from flask_jwt_extended import jwt_required
 from flask_accepts import accepts, responds
 
 from .models import TreatmentTypeModel, TreatmentTypeSchema
-from ..auth.utils import manager_required
+from ..auth.utils import manager_required, auth_required
 
 
 ns = Namespace("ttyes", description="Treatments types related operations.")
@@ -14,7 +13,7 @@ ns = Namespace("ttyes", description="Treatments types related operations.")
 class TreatmentTypes(Resource):
 
     @responds(schema=TreatmentTypeSchema(many=True), api=ns)
-    @jwt_required
+    @auth_required
     def get(self):
         """All treatment types."""
         return TreatmentTypeModel.objects
@@ -34,7 +33,7 @@ class TreatmentTypes(Resource):
 class TreatmentType(Resource):
 
     @responds(schema=TreatmentTypeSchema(), api=ns)
-    @jwt_required
+    @auth_required
     def get(self, rid):
         """Get a single treatment type."""
         return TreatmentTypeModel.with_rid(rid)

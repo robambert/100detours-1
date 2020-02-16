@@ -2,16 +2,51 @@
 	{
 		"code":0,
 		"name":"Pansements",
-		"duration":20
+		"duration":15
 	},
 	{
 		"code":1,
-		"name":"Pansements",
-		"duration":30
+		"name":"Check-up",
+		"duration":40
 	},
 	{
 		"code":2,
 		"name":"Prise de sang",
+		"duration":20
+	},
+	{
+		"code":3,
+		"name":"Vaccin",
+		"duration":20
+	},
+	{
+		"code":4,
+		"name":"Rééducation",
+		"duration":35
+	},
+	{
+		"code":5,
+		"name":"Massage",
+		"duration":25
+	},
+	{
+		"code":6,
+		"name":"Pansements Complexe",
+		"duration":40
+	},
+	{
+		"code":7,
+		"name":"Examen",
+		"duration":35
+	},
+	{
+		"code":8,
+		"name":"Atèle",
+		"duration":20
+	},
+	{
+		"code":9,
+		"name":"Bandage",
 		"duration":10
 	}
 ]
